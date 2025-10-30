@@ -4,14 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pinboard</title>
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
-    <h1>Pinboard</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae harum, necessitatibus sed quod enim laudantium, eius veritatis nostrum optio, quo dolore aliquam temporibus modi iste. Accusamus fuga dicta cum inventore?</p>
-    <div class="controls">
-        <input id="noteText" type="text" placeholder="Write a pin.." />
+    <header>
+        <h1>Pinboard</h1>
+        <div class="view-toggle" role="group" aria-label="View mode">
+            <button id="listViewBtn" type="button" aria-label="List view">List view</button>
+            <button id="cardViewBtn" type="button" aria-label="Card view">Card view</button>
+        </div>
+    </header>
+
+    <p>
+        Pinboard is your personal space to collect, write, and organize ideas.
+        Add colorful notes, change their size, and arrange them the way you like.
+    </p>
+
+    <div class="controls" aria-label="Pinboard Controls">
+        <input id="noteText" type="text" placeholder="Write a pin..." aria-label="Pin text" />
+        <div class="controls-row">
+            <input id="pincolor" type="color" value="#ffeb3b" />
+            <select id="sizeSelect" aria-label="Choose pin size">
+                <option value="small">Small</option>
+                <option value="medium" selected>Medium</option>
+                <option value="large">Large</option>
+            </select>
+        </div>
         <button id="addBtn">Add pin</button>
-      </div>
+    </div>
+    <div id="board" class="board"></div>
+    <script src="assets/script.js"></script>
 </body>
 </html>

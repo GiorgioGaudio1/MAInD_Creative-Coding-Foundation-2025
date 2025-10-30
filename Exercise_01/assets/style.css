@@ -1,73 +1,362 @@
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
-  background: #111315;      
-  color: #eaecee;
-}
+/* ===============================
+   GLOBAL STYLES
+   =============================== */
 
-h1 {
-  margin: 0;
-  padding: 16px;
-}
-
-p { opacity: .85;
+   body {
     margin: 0;
-    padding: 16px; 
-}
-
-.controls {
-    display: flex;
-    gap: 8px;
-    margin: 16px;
-
-  }
-  
-  input[type="text"] {
-    flex: 1;
-    margin-left: 10;
-    padding-left: 5px;
-    border-radius: 8px;
-    border: 1px solid #333;
-    background: #1a1d21;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+    background: #111315;
     color: #eaecee;
   }
   
+  /* Headings and basic text */
+  h1 {
+    margin: 0;
+    padding-left: 0;
+  }
+  
+  p {
+    opacity: 0.85;
+    margin: 0;
+    padding: 16px;
+  }
+  
+  /* ===============================
+     CONTROLS BAR
+     =============================== */
+  
+  .controls {
+    display: flex;              /* Layout elements in a single row */
+    gap: 8px;                   /* Default spacing between items */
+    margin: 16px;               /* Space around the control bar */
+    margin-bottom: 0px;
+    flex-wrap: nowrap;          /* Prevent wrapping by default */
+  }
+  
+  /* --- Base input and select look --- */
+  input[type="text"],
+  input[type="color"],
+  select {
+    height: 38px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    background: #1a1d21;
+    color: #eaecee;
+    box-sizing: border-box;
+  }
+  
+  /* Text input specific */
+  input[type="text"] {
+    flex: 1;                    /* Take all remaining horizontal space */
+    padding: 0 10px;
+  }
+  
+  /* Color picker specific */
+  input[type="color"] {
+    width: 40px;
+    padding: 0;
+    cursor: pointer;
+    background: #1a1d21;
+  }
+  
+  /* Normalize color swatch for Chrome/Safari */
+  input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+  input[type="color"]::-webkit-color-swatch {
+    border: 1px solid #333;
+    border-radius: 8px;
+  }
+  
+  /* Select dropdown with custom arrow */
+  select {
+    font-size: 14px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none; /* Safari fix */
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='%23eaecee' d='M1 1l5 5 5-5'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 10px 6px;
+    padding: 0 28px 0 12px; /* space for arrow on the right */
+  }
+  
+  select:hover {
+    border-color: #444;
+  }
+  
+  /* Add button */
   button {
     background: #4f46e5;
     color: white;
     border: none;
-    padding: 8px 12px;
+    padding: 0 12px;
     border-radius: 8px;
     cursor: pointer;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+  
+  button:hover {
+    opacity: 0.9;
+  }
+  
+  /* ===============================
+     HEADER & VIEW TOGGLE
+     =============================== */
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+  }
+  
+  .view-toggle {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .view-toggle button {
+    background: #2d2d2d;
+    border: 1px solid #444;
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+  
+  .view-toggle button:hover {
+    background: #3d3d3d;
   }
 
+  /* ===============================
+   BOARD & PINS
+   =============================== */
+
+/* The board uses a responsive grid */
+.board {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    padding: 16px;
+  }
+  
+  /* Base pin (card) look */
+  .pin {
+    position: relative;
+    display: grid;           /* center on both axes */
+    place-items: center;     /* shorthand: align-items + justify-items */
+    border-radius: 12px;
+    padding: 12px;
+    padding-top: 20px;       /* room for the top-right X */
+    box-sizing: border-box;
+    color: #111315;
+    word-break: break-word;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  
+  
+/* Three sizes: control both height and width */
+.pin.small {
+    min-height: 80px;
+    font-size: 14px;
+    width: 180px;
+  }
+  
+  .pin.medium {
+    min-height: 140px;
+    font-size: 16px;
+    width: 240px;
+  }
+  
+  .pin.large {
+    min-height: 220px;
+    font-size: 18px;
+    width: 320px;
+  }
+
+  .board {
+    display: flex;         
+    flex-wrap: wrap;        /* multiple rows */
+    gap: 12px;
+    padding: 16px;
+    justify-content: left;
+  }
+  
+  
+  .pin:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px rgba(154, 154, 154, 0.612);
+  }
+
+
+/* =========================================
+   VIEW MODES
+   ========================================= */
+
+/* Card (masonry-like) using flex so pins keep their own widths */
+.board.card-view {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 16px;
+    justify-content: center;
+  }
+  
+  /* List: single column, full width */
+  .board.list-view {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+  }
+  
+  /* In list view each pin stretches full width */
+  .board.list-view .pin {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  /* In card view the pin widths come from size classes */
+  .board.card-view .pin.small  { width: 180px; }
+  .board.card-view .pin.medium { width: 240px; }
+  .board.card-view .pin.large  { width: 320px; }
+
+  
+  /* ===============================
+     MEDIA QUERIES
+     =============================== */
+  
   /* --- PHONE --- */
-@media (max-width: 600px) {
-    body {  
-    background: #181a1f;
+  @media (max-width: 600px) {
+    .controls {
+      flex-direction: column;   /* Stack controls vertically */
+      gap: 12px;
+    }
+  
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+    }
+  
+    .controls-row {
+      display: flex;
+      gap: 8px;
+      width: 100%;
+    }
+  
+    input[type="color"],
+    select {
+      width: calc(50% - 4px);   /* Two elements per row */
+      height: 38px;
+    }
+  
+    button#addBtn {
+      width: 100%;
+      margin-top: 2px;
+      padding: 12px;
     }
   }
   
   /* --- TABLET --- */
   @media (min-width: 601px) and (max-width: 1024px) {
     body {
-        text-align: center;
-
+      text-align: center;
     }
   
     .controls {
-      flex-wrap: wrap;
+      flex-wrap: wrap;          /* Allow wrapping on medium screens */
+    }
+  
+    .controls-row {
+      display: flex;
+      gap: 8px;
+      width: 50%;
+      justify-content: space-between;
+    }
+  
+    input[type="color"],
+    select {
+      width: calc(50% - 4px);
+      height: 38px;
+    }
+  
+    button#addBtn {
+      width: 100%;
+      margin-top: 2px;
+      padding: 12px;
     }
   }
   
   /* --- DESKTOP --- */
   @media (min-width: 1025px) {
-    body {        text-align: center;
-
+    body {
+      max-width: 800px;         /* Centered layout */
+      margin: 2rem auto;
+      padding: 0 1rem;
     }
   
     .controls {
-      flex-direction: row;
+      align-items: center;      /* Vertical centering */
+      justify-content: center;  /* Center horizontally */
+      gap: 8px;
+    }
+  
+    .controls input[type="text"],
+    .controls input[type="color"],
+    .controls select,
+    .controls button#addBtn {
+      height: 42px;
+      box-sizing: border-box;
+      vertical-align: middle;
+    }
+  
+    .controls input[type="color"] {
+      width: 42px;
+      margin-right: 4px;       
+    }
+  
+    .controls select {
+      width: 100px;
+      background-color: #1a1d21;
+      padding: 0 8px 0 12px;
+    }
+  
+    .controls button#addBtn {
+      width: 100px;
     }
   }
+
+  /* ===============================
+   PIN CLOSE BUTTON (X in top-right)
+   =============================== */
+
+
+
+  /* Close (X) button style */
+  .pin-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: rgb(33, 33, 33);
+    color: #fff;
+    font-weight: bold;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s ease;
+  }
+
   
+  /* Give space so text doesn't hide under the X */
+  .pin-content {
+    padding: absolute;
+  }
