@@ -1,8 +1,4 @@
-/* ==========================================
-   Pinboard – single source of truth
-   ========================================== */
-
-// --- 1) DOM references ---
+// --- 1) Element references ---
 const board      = document.getElementById('board');
 const noteText   = document.getElementById('noteText');
 const addBtn     = document.getElementById('addBtn');
@@ -103,8 +99,8 @@ function createPinNode(pin) {
 function render() {
         board.innerHTML = '';
         pins.forEach(pin => {
-          const node = createPinNode(pin); // node è il DOM element ritornato
-          board.appendChild(node);         // ⬅️ appendi node, NON card
+          const node = createPinNode(pin); 
+          board.appendChild(node);         
         });
       }
 

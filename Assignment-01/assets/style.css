@@ -9,7 +9,7 @@
     color: #eaecee;
   }
   
-  /* Headings and basic text */
+  /* Header */
   h1 {
     margin: 0;
     padding-left: 0;
@@ -30,7 +30,7 @@
     gap: 8px;                   /* Default spacing between items */
     margin: 16px;               /* Space around the control bar */
     margin-bottom: 0px;
-    flex-wrap: nowrap;          /* Prevent wrapping by default */
+    flex-wrap: nowrap;          
   }
   
   /* --- Base input and select look --- */
@@ -68,12 +68,11 @@
     border-radius: 8px;
   }
   
-  /* Select dropdown with custom arrow */
+  /* Select dropdown arrow */
   select {
     font-size: 14px;
     cursor: pointer;
     appearance: none;
-    -webkit-appearance: none; /* Safari fix */
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='%23eaecee' d='M1 1l5 5 5-5'/></svg>");
     background-repeat: no-repeat;
     background-position: right 12px center;
@@ -135,7 +134,6 @@
    BOARD & PINS
    =============================== */
 
-/* The board uses a responsive grid */
 .board {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -146,11 +144,11 @@
   /* Base pin (card) look */
   .pin {
     position: relative;
-    display: grid;           /* center on both axes */
-    place-items: center;     /* shorthand: align-items + justify-items */
+    display: grid;          
+    place-items: center;   
     border-radius: 12px;
     padding: 12px;
-    padding-top: 20px;       /* room for the top-right X */
+    padding-top: 20px;      
     box-sizing: border-box;
     color: #111315;
     word-break: break-word;
@@ -267,7 +265,7 @@
     }
   
     .controls {
-      flex-wrap: wrap;          /* Allow wrapping on medium screens */
+      flex-wrap: wrap;         
     }
   
     .controls-row {
@@ -358,5 +356,5 @@
   
   /* Give space so text doesn't hide under the X */
   .pin-content {
-    padding: absolute;
+    padding: 12px;
   }
