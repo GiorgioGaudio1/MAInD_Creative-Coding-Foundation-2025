@@ -70,7 +70,7 @@ function createPinNode(pin) {
     closeBtn.type = 'button';
     closeBtn.setAttribute('aria-label', 'Delete pin');
     closeBtn.textContent = '×';
-    closeBtn.addEventListener('click', () => removePin(pin.id));
+    closeBtn.addEventListener('click', () => removePin(pin.id)); 
   
     // --- Editable text area ---
     const content = document.createElement('div');
