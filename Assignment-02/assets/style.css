@@ -1,0 +1,237 @@
+/* ===============================
+   GLOBAL STYLES
+   =============================== */
+
+   * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: "Inter", Arial, sans-serif;
+      background: #121212;
+      color: #eaeaea;
+      margin: 0;
+      padding: 20px;
+    }
+    
+    #game-container {
+      width: 100%;
+      max-width: 380px;
+      margin: 0 auto;
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid #2a2a2a;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+    
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      margin: 10px 0 14px;
+      color: #ffd54f;
+      font-weight: 700;
+    }
+    
+    #word {
+      font-size: 2rem;
+      text-align: center;
+      letter-spacing: 0.35rem;
+      margin: 15px 0;
+      white-space: nowrap;
+      overflow: hidden;
+      color: #fff;
+    }
+    
+    p {
+      margin: 6px 0;
+      font-size: 1rem;
+    }
+    
+    #message {
+      text-align: center;
+      width: 100%;
+      margin-top: 20px;
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+    
+    .button-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px 0 10px;
+    }
+    
+    #restart-btn {
+      display: none;
+      padding: 10px 26px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      background: #ffd54f;
+      color: #212121;
+      border: none;
+      border-radius: 8px;
+      transition: 0.2s ease;
+      font-weight: 600;
+    }
+    
+    
+    
+    #restart-btn:hover {
+      background: #ffeb80;
+      transform: translateY(-2px);
+    }
+    
+    .help-text {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #a0a0a0;
+      margin-top: 10px;
+    }
+    
+    
+    /* ===== PARTS ===== */
+    
+    #hangman {
+      width: 180px;
+      height: 240px;
+      border: 1px solid #444;
+      margin: 20px auto;
+      position: relative;
+      background: #2a2a2a;
+      border-radius: 8px;
+    }
+    
+    .part {
+      position: absolute;
+      background: #ffd54f;
+      visibility: hidden;
+    }
+    
+    #hangman-rope {
+      top: 10px;
+      left: 88px;
+      width: 4px;
+      height: 30px;
+    }
+    
+    #hangman-head {
+      top: 38px;
+      left: 73px;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+    }
+    
+    #hangman-body {
+      top: 73px;
+      left: 89px;
+      width: 4px;
+      height: 55px;
+    }
+    
+    #hangman-arm-left {
+      top: 85px;
+      left: 60px;
+      width: 32px;
+      height: 4px;
+    }
+    
+    #hangman-arm-right {
+      top: 85px;
+      left: 93px;
+      width: 30px;
+      height: 4px;
+    }
+    
+    #hangman-leg-left {
+      top: 126px;
+      left: 81px;
+      width: 4px;
+      height: 40px;
+      transform: rotate(20deg);
+    }
+    
+    #hangman-leg-right {
+      top: 126px;
+      left: 97px;
+      width: 4px;
+      height: 40px;
+      transform: rotate(-20deg);
+    }
+    
+    
+    /* ===== TABLET ===== */
+    
+    @media (min-width: 600px) {
+      #game-container {
+        max-width: 500px;
+        padding: 20px;
+      }
+    
+      h1 {
+        font-size: 1.8rem;
+      }
+    
+      #word {
+        font-size: 1.9rem;
+        letter-spacing: 0.35rem;
+      }
+    
+      p {
+        font-size: 1rem;
+      }
+    
+      #message {
+        font-size: 1.2rem;
+      }
+    
+      #restart-btn {
+        padding: 8px 20px;
+        font-size: 1rem;
+      }
+    
+      #hangman {
+        width: 200px;
+        height: 260px;
+      }
+    }
+    
+    
+    /* ===== DESKTOP ===== */
+    
+    @media (min-width: 900px) {
+      #game-container {
+        max-width: 650px;
+        padding: 30px;
+      }
+    
+      h1 {
+        font-size: 2rem;
+      }
+    
+      #word {
+        font-size: 2.2rem;
+        letter-spacing: 0.4rem;
+      }
+    
+      p {
+        font-size: 1.05rem;
+      }
+    
+      #message {
+        font-size: 1.3rem;
+      }
+    
+      #restart-btn {
+        padding: 10px 24px;
+        font-size: 1.1rem;
+      }
+    
+      #hangman {
+        width: 240px;
+        height: 300px;
+      }
+    }
+    

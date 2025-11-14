@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/style.css">
+    <script src="assets/script.js" defer></script> 
+    <title>Hangman</title>
+</head>
+<body>
+    <div id="game-container">
+        <h1>Hangman</h1>
+        <p class="help-text">Type letters on your keyboard to play.</p>
+
+        <div id="word"></div>
+
+        <p><span id="errors">0/7</span></p>
+        <p><span id="used-letters"></span></p>
+
+    
+        <!-- Hangman parts -->
+        <div id="hangman">
+            <div id="hangman-rope" class="part"></div>
+            <div id="hangman-head" class="part"></div>
+            <div id="hangman-arm-left" class="part"></div>
+            <div id="hangman-arm-right" class="part"></div>
+            <div id="hangman-body" class="part"></div>
+            <div id="hangman-leg-left" class="part"></div>
+            <div id="hangman-leg-right" class="part"></div>
+        </div>
+
+        <h2 id="message"></h2>
+<div class="button-row">
+  <button id="restart-btn" style="display:none;">Play again</button>
+</div>
+
+
+    </div>
+</body>
+</html>
