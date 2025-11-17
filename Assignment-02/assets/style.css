@@ -5,6 +5,20 @@
    * {
       box-sizing: border-box;
     }
+
+    #stats-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 5px 0;
+      width: 100%;
+    }
+    
+    #stats-row p {
+      margin: 0;
+      font-size: 1rem;
+    }
+    
     
     body {
       font-family: "Inter", Arial, sans-serif;
@@ -23,12 +37,13 @@
       border-radius: 12px;
       border: 1px solid #2a2a2a;
       box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      position: relative;
     }
     
     h1 {
       text-align: center;
       font-size: 2rem;
-      margin: 10px 0 14px;
+      margin: 1px 0 10px;
       color: #ffd54f;
       font-weight: 700;
     }
@@ -90,23 +105,35 @@
       margin-top: 10px;
     }
     
+    .part {
+      position: absolute;
+      background: #ffd54f;
+      visibility: hidden;
+    }
+    
     
     /* ===== PARTS ===== */
     
     #hangman {
       width: 180px;
-      height: 240px;
-      border: 1px solid #444;
+      height: 260px;
       margin: 20px auto;
-      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
       background: #2a2a2a;
       border-radius: 8px;
+      border: 1px solid #444;
+      position: relative;
+      padding-top: 10px;
     }
     
-    .part {
-      position: absolute;
-      background: #ffd54f;
-      visibility: hidden;
+    #hangman-inner {
+      position: relative;
+      width: 180px;
+      height: 240px;
+      transform-origin: top center; 
     }
     
     #hangman-rope {
@@ -163,7 +190,7 @@
     
     
     /* ===== TABLET ===== */
-    
+
     @media (min-width: 600px) {
       #game-container {
         max-width: 500px;
@@ -193,45 +220,103 @@
       }
     
       #hangman {
-        width: 200px;
-        height: 260px;
+        width: 260px;
+        height: 320px;
+      }
+    
+      #hangman-inner {
+        transform: scale(1.1);
       }
     }
     
-    
-    /* ===== DESKTOP ===== */
-    
-    @media (min-width: 900px) {
-      #game-container {
-        max-width: 650px;
-        padding: 30px;
-      }
-    
-      h1 {
-        font-size: 2rem;
-      }
-    
-      #word {
-        font-size: 2.2rem;
-        letter-spacing: 0.4rem;
-      }
-    
-      p {
-        font-size: 1.05rem;
-      }
-    
-      #message {
-        font-size: 1.3rem;
-      }
-    
-      #restart-btn {
-        padding: 10px 24px;
-        font-size: 1.1rem;
-      }
-    
-      #hangman {
-        width: 240px;
-        height: 300px;
-      }
-    }
-    
+ 
+ 
+ /* ===== DESKTOP ===== */
+ 
+ @media (min-width: 900px) {
+   #game-container {
+     max-width: 600px;
+     padding: 25px;
+   }
+ 
+   h1 {
+     font-size: 2rem;
+   }
+ 
+   #word {
+     font-size: 2.2rem;
+     letter-spacing: 0.4rem;
+   }
+ 
+   p {
+     font-size: 1.05rem;
+   }
+ 
+   #message {
+     font-size: 1.3rem;
+   }
+ 
+   #restart-btn {
+     padding: 10px 24px;
+     font-size: 1.1rem;
+   }
+ 
+   #hangman {
+     width: 320px;
+     height: 400px;
+   }
+ 
+   #hangman-inner {
+     transform: scale(1.15);
+   }
+ }
+ 
+
+
+
+      /* ===== COLOR SELECTOR ===== */
+      #color-select-container {
+         text-align: center;
+         margin-top: 12px;
+       }
+       
+       #color-label {
+         margin: 0 0 6px;
+         font-size: 1rem;
+       }
+       
+       .color-option {
+         width: 28px;
+         height: 28px;
+         border-radius: 6px;
+         display: inline-block;
+         margin: 0 6px;  
+         cursor: pointer;
+         border: 2px solid #fff;
+         transition: transform 0.15s ease;
+       }
+       
+       .color-option:hover {
+         transform: scale(1.05);
+       }
+       
+       .color-option.selected {
+         border: 3px solid #fff;
+         transform: scale(1.1);
+       }
+       
+       
+       /* TOGGLE SQUARE (top-right) */
+       
+       #color-toggle {
+         position: absolute;
+         top: 16px;
+         right: 16px;
+         width: 28px;
+         height: 28px;
+         border-radius: 6px;
+         background: #ffd54f; 
+         border: 2px solid #ffffff;
+         cursor: pointer;
+         display: none; 
+       }
