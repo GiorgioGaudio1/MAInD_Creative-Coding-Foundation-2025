@@ -1,85 +1,107 @@
-#Assignment 01
+#Assignment 02
 
 ## Brief
 
-Starting from the concept of a pinboard, implement a web page that:
+Choose a “mini-game” to rebuild with HTML, CSS and JavaScript. The requirements are:
 
-- is responsive (properly layout for smartphone, tablet, and desktop)
-- allows the user to add and remove elements
-- allows the user to customize elements (i.e. colors, size)
-- allows the switch between two views (at least)
+- The webpage should be responsive
+- Choose an avatar at the beginning of the game
+- Keep track of the score of the player
+- Use the keyboard to control the game (indicate what are the controls in the page). You can also use buttons (mouse), but also keyboard.
+- Use some multimedia files (audio, video, …)
+- Implement an “automatic restart” in the game (that is not done via the refresh of the page)
 
-![First screenshoot](DOC/List-view.png) 
+![First screenshoot](DOC/Hangman_1.png) 
 
-![Second screenshoot](DOC/Card-view.png)
+![Second screenshoot](DOC/Hangman_2(youwin).png)
 
 ## Project description
-PinBoard is a minimal and intuitive digital board for collecting and managing short notes or ideas, just like sticky notes.
-Each pin can be given a color and size, edited inline, or deleted with a simple “×”.
-The layout can be toggled between list and grid (card) view, adapting responsively to the screen size.
-
-The app relies entirely on vanilla JavaScript, manipulating the DOM directly and maintaining an internal array of pin objects as the “single source of truth.”
+Hangman is a minimalist browser game where you guess a hidden programming word by typing letters on the keyboard. Each wrong guess reveals a new part of a colored hangman. Sounds, score tracking and a color picker make quick, replayable rounds.
 
 graph TD
-  A[User Interaction] --> B[Event Handlers]
-  B --> C{Action Type}
-  C -->|Add Pin| D[Create New Pin Object]
-  C -->|Remove Pin| E[Delete Pin by ID]
-  C -->|Edit Pin| F[Update Pin Text]
-  C -->|Toggle View| G[Switch View Mode]
-  D --> H[Save to localStorage]
-  E --> H
-  F --> H
-  H --> I[Render Board]
-  I --> J[Display Pins in DOM]
-...
+  A[Page load] --> B[startGame()]
+  B --> C[Init word, errors, usedLetters, score]
+  C --> D[Pick random word & build displayWord]
+  D --> E[Hide hangman parts & applyHangmanColor()]
+  E --> F[Render word, stats, UI]
 
-![Diagram](DOC/Diagram.png)
+  A --> G[User chooses color]
+  G --> H[Set chosenColor & applyHangmanColor()]
+  H --> E
+
+  A --> I[Keydown letter]
+  I --> J[handleGuess(letter)]
+  J --> K{Valid A–Z<br/>and not used?}
+  K -->|No| F
+
+  K -->|Yes & in word| L[Reveal matching letters<br/>updateWordDisplay()]
+  L --> M{Word complete?}
+  M -->|Yes| N[Win state<br/>score++<br/>play win sound<br/>show restart]
+  M -->|No| F
+
+  K -->|Yes & not in word| O[errors++<br/>update errors label<br/>reveal next hangman part]
+  O --> P{errors == maxErrors?}
+  P -->|Yes| Q[Lose state<br/>show word<br/>play lose sound<br/>show restart]
+  P -->|No| F
+
+  R[Restart button click] --> B
+
+![Diagram](DOC/Block_diagram.svg)
 
 ## Function list
-loadPins()
 
-### loadPins()
-Arguments: None
-Description: Loads stored pins from localStorage (or returns an empty array if none are found).
-Returns: Array of pin objects
 
-### savePins()
-Arguments: None
-Description: Saves the current array of pins to localStorage.
+### applyHangmanColor()
+
+Arguments: none
+What it does: Applies the selected color to all hangman body parts by iterating over hangmanParts.
 Returns: void
 
-### addPin(text)
-Arguments: text (string) — The content to be added inside the new pin.
-Description: Creates a new pin with text, color, and size, then renders it on the board.
+### startGame()
+
+Arguments: none
+What it does: Initializes a new game: selects a random word, resets errors and used letters, updates the UI, hides all hangman parts, and applies the selected color.
 Returns: void
 
-### updatePin(id, patch)
+### updateWordDisplay()
+
+Arguments: none
+What it does: Updates the visible word by joining the displayWord array and writing it into the DOM.
+Returns: void
+
+### handleGuess(letter)
+
 Arguments:
-id (string) — The unique identifier of the pin.
-patch (object) — The properties to update (e.g., new text).
-Description: Updates an existing pin’s properties (such as edited text).
+letter (string)
+What it does: Validates the letter, updates the list of used letters, reveals correct letters or increases errors, updates the UI, and handles win/lose states including sounds.
 Returns: void
 
-### removePin(id)
-Arguments: id (string) — The unique identifier of the pin.
-Description: Removes a pin from the board and from memory.
+### Keyboard Event Listener
+
+document.addEventListener("keydown", ...)
+Arguments: event (KeyboardEvent)
+What it does: Captures the pressed key, converts it, and passes it to handleGuess().
 Returns: void
 
-### createPinNode(pin)
-Arguments: pin (object) — The pin data object containing text, color, size, and ID.
-Description: Dynamically builds a DOM element (div.pin) for each pin,
-including the “×” delete button and the editable text area.
-Returns: HTMLElement
+### Restart Button Listener
 
-### render()
-Arguments: None
-Description: Clears the board and re-renders all pins currently stored in memory.
+restartBtn.addEventListener("click", ...)
+Arguments: none
+What it does: Starts a new game by calling startGame().
 Returns: void
 
-### applyView()
-Arguments: None
-Description: Switches between Card View and List View by toggling CSS classes on the board.
+### Color Option Listeners
+
+colorOptions.forEach(option => option.addEventListener("click", ...))
+Arguments: none
+What it does: Updates chosenColor, refreshes the color selector UI, and calls applyHangmanColor().
+Returns: void
+
+### Color Toggle Listener
+
+colorToggle.addEventListener("click", ...)
+Arguments: none
+What it does: Opens the color selection panel and hides the toggle.
 Returns: void
 
 ## Licence
