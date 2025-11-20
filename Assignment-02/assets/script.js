@@ -46,7 +46,7 @@ const hangmanParts = [
 ];
 
 // Color 
-let chosenColor = "#ffd54f"; 
+let chosenColor = "#ffd54f";
 
 const colorOptions = document.querySelectorAll(".color-option");
 
@@ -100,10 +100,10 @@ function startGame() {
   scoreHtml.textContent = "Score: " + score;
 
 
-for (let i = 0; i < hangmanParts.length; i++) {
-  hangmanParts[i].style.visibility = "hidden";
-}
-applyHangmanColor();
+  for (let i = 0; i < hangmanParts.length; i++) {
+    hangmanParts[i].style.visibility = "hidden";
+  }
+  applyHangmanColor();
 }
 
 
@@ -171,7 +171,8 @@ document.addEventListener("keydown", function (event) {
   const key = event.key.toUpperCase();
   handleGuess(key);
 });
-restartBtn.addEventListener("click", function () {  startGame();
+restartBtn.addEventListener("click", function () {
+  startGame();
 });
 
 // ----- START INITIAL GAME -----
