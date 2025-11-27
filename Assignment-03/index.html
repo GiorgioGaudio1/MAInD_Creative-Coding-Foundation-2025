@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="assets/script.js" defer></script>
+  <title>Hangman</title>
+</head>
+
+<body>
+  <audio id="win-sound" src="assets/Sound/win.mp3"></audio>
+  <audio id="lose-sound" src="assets/Sound/lose.mp3"></audio>
+
+  <div id="game-container">
+    <h1>Hangman</h1>
+    <p class="help-text">Type letters on your keyboard to play.</p>
+
+    <div id="word"></div>
+
+    <div id="stats-row">
+      <p id="errors">Errors: 0/7</p>
+      <p id="score">Score: 0</p>
+    </div>
+
+    <p id="used-letters">Used letters:</p>
+
+    <h2 id="message"></h2>
+    <div class="button-row">
+      <button id="restart-btn" style="display:none;">Play again</button>
+    </div>
+
+    <!-- Hangman box -->
+    <div id="hangman">
+      <div id="hangman-inner">
+        <div id="hangman-rope" class="part"></div>
+        <div id="hangman-head" class="part"></div>
+        <div id="hangman-arm-left" class="part"></div>
+        <div id="hangman-arm-right" class="part"></div>
+        <div id="hangman-body" class="part"></div>
+        <div id="hangman-leg-left" class="part"></div>
+        <div id="hangman-leg-right" class="part"></div>
+      </div>
+
+      <div id="color-select-container">
+        <p id="color-label">Select hangman color:</p>
+        <div class="color-option" data-color="#ffd54f" style="background:#ffd54f;"></div>
+        <div class="color-option" data-color="#ff5252" style="background:#ff5252;"></div>
+        <div class="color-option" data-color="#4caf50" style="background:#4caf50;"></div>
+        <div class="color-option" data-color="#40c4ff" style="background:#40c4ff;"></div>
+      </div>
+
+      <div id="color-toggle" title="Change hangman color"></div>
+    </div>
+  </div>
+</body>
+
+</html>
