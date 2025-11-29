@@ -6,6 +6,19 @@
   box-sizing: border-box;
 }
 
+#stats-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+#stats-row p {
+  margin: 0;
+  font-size: 1rem;
+}
+
 body {
   font-family: "Inter", Arial, sans-serif;
   background: #121212;
@@ -26,63 +39,19 @@ body {
   position: relative;
 }
 
-/* ===== HEADER WITH TITLE AND SCORE ===== */
-
-#stats-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin: 0 0 15px 0;
-  gap: 15px;
-}
-
-#stats-row p {
-  margin: 0;
-  font-size: 1rem;
-}
-
-#score {
-  text-align: left;
-  flex: 1;
-}
-
 h1 {
   text-align: center;
   font-size: 2rem;
-  margin: 0;
+  margin: 1px 0 10px;
   color: #ffd54f;
   font-weight: 700;
-  flex: 1;
-}
-
-#color-toggle {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  background: #ffd54f;
-  border: 2px solid #ffffff;
-  cursor: pointer;
-  display: none;
-}
-
-/* ===== INSTRUCTIONS AND WORD ===== */
-
-.help-text {
-  text-align: center;
-  font-size: 0.9rem;
-  color: #a0a0a0;
-  margin-top: 10px;
 }
 
 #word {
   font-size: 2rem;
   text-align: center;
   letter-spacing: 0.35rem;
-  margin: 15px auto;
+  margin: 15px 0;
   word-wrap: break-word;
   white-space: normal;
   overflow: visible;
@@ -92,23 +61,11 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 
 p {
   margin: 6px 0;
   font-size: 1rem;
-}
-
-#errors {
-  text-align: center;
-  margin: 10px 0;
-}
-
-#used-letters {
-  text-align: center;
-  margin: 10px 0;
-  word-wrap: break-word;
 }
 
 #message {
@@ -118,135 +75,6 @@ p {
   font-size: 1.3rem;
   font-weight: 600;
 }
-
-/* ===== HANGMAN BOX ===== */
-
-#hangman {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 20px 0;
-}
-
-#hangman-inner {
-  position: relative;
-  width: 180px;
-  height: 240px;
-  background: #2a2a2a;
-  border-radius: 8px;
-  border: 1px solid #444;
-  padding-top: 10px;
-  margin: 20px auto;
-}
-
-.part {
-  position: absolute;
-  background: #ffd54f;
-  visibility: hidden;
-}
-
-#hangman-rope {
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 4px;
-  height: 30px;
-}
-
-#hangman-head {
-  top: 38px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  margin-left: -17.5px;
-}
-
-#hangman-body {
-  top: 73px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 4px;
-  height: 55px;
-}
-
-#hangman-arm-left {
-  top: 85px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 32px;
-  height: 4px;
-  margin-left: -16px;
-}
-
-#hangman-arm-right {
-  top: 85px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 30px;
-  height: 4px;
-  margin-left: 15px;
-}
-
-#hangman-leg-left {
-  top: 126px;
-  left: 50%;
-  transform: translateX(-50%) rotate(20deg);
-  width: 4px;
-  height: 40px;
-  margin-left: -8px;
-}
-
-#hangman-leg-right {
-  top: 126px;
-  left: 50%;
-  transform: translateX(-50%) rotate(-20deg);
-  width: 4px;
-  height: 40px;
-  margin-left: 8px;
-}
-
-/* ===== CATEGORY SELECT ===== */
-
-#category-select-container {
-  text-align: center;
-  margin: 15px 0;
-  padding: 15px 0;
-  display: block;
-}
-
-#category-label {
-  display: block;
-  margin: 0 0 10px;
-  font-size: 1rem;
-  color: #eaeaea;
-}
-
-#category-select {
-  padding: 8px 12px;
-  font-size: 1rem;
-  background: #1e1e1e;
-  color: #ffd54f;
-  border: 2px solid #ffd54f;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-#category-select:hover {
-  background: #2a2a2a;
-  border-color: #ffeb80;
-}
-
-#category-select:focus {
-  outline: none;
-  border-color: #ffeb80;
-}
-
-/* ===== BUTTONS ===== */
 
 .button-row {
   display: flex;
@@ -272,6 +100,170 @@ p {
   background: #ffeb80;
   transform: translateY(-2px);
 }
+
+
+.part {
+  position: absolute;
+  background: #ffd54f;
+  visibility: hidden;
+}
+
+/* ===== HANGMAN ===== */
+
+#hangman {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#hangman-inner {
+  position: relative;
+  width: 180px;
+  height: 240px;
+  margin: 20px auto;
+  background: #2a2a2a;
+  border-radius: 8px;
+  border: 1px solid #444;
+  padding-top: 10px;
+}
+
+#hangman-rope {
+  top: 10px;
+  left: 88px;
+  width: 4px;
+  height: 30px;
+}
+
+#hangman-head {
+  top: 38px;
+  left: 73px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+
+#hangman-body {
+  top: 73px;
+  left: 89px;
+  width: 4px;
+  height: 55px;
+}
+
+#hangman-arm-left {
+  top: 85px;
+  left: 60px;
+  width: 32px;
+  height: 4px;
+}
+
+#hangman-arm-right {
+  top: 85px;
+  left: 93px;
+  width: 30px;
+  height: 4px;
+}
+
+#hangman-leg-left {
+  top: 126px;
+  left: 81px;
+  width: 4px;
+  height: 40px;
+  transform: rotate(20deg);
+}
+
+#hangman-leg-right {
+  top: 126px;
+  left: 97px;
+  width: 4px;
+  height: 40px;
+  transform: rotate(-20deg);
+}
+
+/* ===== MOBILE ===== */
+
+@media (max-width: 599px) {
+  #game-container {
+    max-width: 380px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  #word {
+    font-size: 1.8rem;
+    letter-spacing: 0.3rem;
+  }
+
+}
+
+/* ===== TABLET ===== */
+
+@media (min-width: 600px) {
+  #game-container {
+    max-width: 500px;
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  #word {
+    font-size: 1.9rem;
+    letter-spacing: 0.35rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+  #message {
+    font-size: 1.2rem;
+  }
+
+  #restart-btn {
+    padding: 8px 20px;
+    font-size: 1rem;
+  }
+
+
+}
+
+/* ===== DESKTOP ===== */
+
+@media (min-width: 900px) {
+  #game-container {
+    max-width: 600px;
+    padding: 25px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  #word {
+    font-size: 2.2rem;
+    letter-spacing: 0.4rem;
+  }
+
+  p {
+    font-size: 1.05rem;
+  }
+
+  #message {
+    font-size: 1.3rem;
+  }
+
+  #restart-btn {
+    padding: 10px 24px;
+    font-size: 1.1rem;
+  }
+
+}
+
 
 /* ===== FIGURE INFO CARD ===== */
 
@@ -301,32 +293,17 @@ p {
   height: auto;
   border-radius: 8px;
   margin-bottom: 15px;
-  display: none;
+  display: none;           
+  display: block;         
+  margin-left: auto;      
+  margin-right: auto;
 }
 
 #figure-image-container {
   margin-bottom: 20px;
-  text-align: center;
+  text-align: center; 
 }
 
-#figure-info-card h2.figure-name {
-  color: #ffd700;
-  margin-bottom: 20px;
-  font-size: 36px;
-  text-align: center;
-  line-height: 1.4;
-  display: block;
-}
-
-#figure-info-card h2.figure-name .first-name {
-  display: block;
-  margin-bottom: 12px;
-}
-
-#figure-info-card h2.figure-name .last-name {
-  display: block;
-  font-weight: bold;
-}
 
 #figure-info-card .figure-title {
   font-size: 15px;
@@ -336,151 +313,84 @@ p {
   text-align: center;
 }
 
-/* Play again button inside figure info card */
-#figure-info-card .button-row {
-  margin-top: 20px;
-  margin-bottom: 0;
-}
+/* ===== CATEGORY SELECT ===== */
 
-#figure-info-card #restart-btn {
-  display: inline-block;
-}
-
-/* ===== COLOR SELECTOR ===== */
-
-#color-select-container {
+#category-select-container {
   text-align: center;
-  margin-top: 12px;
+  margin: 15px 0;
+  padding: 15px 0;
 }
 
-#color-label {
-  margin: 0 0 6px;
+#category-label {
+  display: block;
+  margin: 0 0 10px;
   font-size: 1rem;
+  color: #eaeaea;
 }
 
-.color-option {
-  width: 28px;
-  height: 28px;
+#category-select {
+  padding: 8px 12px;
+  font-size: 1rem;
+  background: #1e1e1e;
+  color: #ffd54f;
+  border: 2px solid #ffd54f;
   border-radius: 6px;
-  display: inline-block;
-  margin: 0 6px;
   cursor: pointer;
-  border: 2px solid #fff;
-  transition: transform 0.15s ease;
+  transition: 0.2s ease;
 }
 
-.color-option:hover {
-  transform: scale(1.05);
+#category-select:hover {
+  background: #2a2a2a;
+  border-color: #ffeb80;
 }
 
-.color-option.selected {
-  border: 3px solid #fff;
-  transform: scale(1.1);
+#category-select:focus {
+  outline: none;
+  border-color: #ffeb80;
+}
+/* base */
+#hangman-tool,
+#hangman-cloud,
+#hangman-beaker {
+  position: absolute;
+  display: none;
+  background-color: #f4d03f;
 }
 
-/* ===== MOBILE ===== */
-
-@media (max-width: 599px) {
-  #game-container {
-    max-width: 380px;
-  }
-
-  #stats-row {
-    flex-direction: row;
-    gap: 10px;
-  }
-
-  h1 {
-    font-size: 1.8rem;
-  }
-
-  #word {
-    font-size: 1.8rem;
-    letter-spacing: 0.3rem;
-  }
-
-  #hangman-inner {
-    width: 160px;
-    height: 220px;
-  }
+/* rivoluzionari: solo posizione/spada */
+.cat-revolutionaries #hangman-tool {
+  width: 5px;
+  height: 60px;
+  top: 40px;
+  left: 126px;
+  transform: rotate(20deg);
+  border-radius: 3px;
 }
 
-/* ===== TABLET ===== */
+/* Filosofi: nuvoletta stile fumetto (1 solo elemento) */
+.cat-philosophers #hangman-cloud {
+  position: absolute;
+  top: 20px;
+  left: 110px;
+  width: 50px;
+  height: 30px;
+  background: #f4d03f;
+  display: block;
+  
+  /* forma blob */
+  border-radius: 50% 40% 60% 50% / 60% 50% 40% 50%;
 
-@media (min-width: 600px) {
-  #game-container {
-    max-width: 500px;
-    padding: 20px;
-  }
-
-  #stats-row {
-    margin-bottom: 15px;
-  }
-
-  h1 {
-    font-size: 1.8rem;
-  }
-
-  #word {
-    font-size: 1.9rem;
-    letter-spacing: 0.35rem;
-  }
-
-  p {
-    font-size: 1rem;
-  }
-
-  #message {
-    font-size: 1.2rem;
-  }
-
-  #restart-btn {
-    padding: 8px 20px;
-    font-size: 1rem;
-  }
-
-  #hangman-inner {
-    width: 220px;
-    height: 280px;
-  }
 }
 
-/* ===== DESKTOP ===== */
 
-@media (min-width: 900px) {
-  #game-container {
-    max-width: 600px;
-    padding: 25px;
-  }
-
-  #stats-row {
-    margin-bottom: 15px;
-  }
-
-  h1 {
-    font-size: 2rem;
-  }
-
-  #word {
-    font-size: 2.2rem;
-    letter-spacing: 0.4rem;
-  }
-
-  p {
-    font-size: 1.05rem;
-  }
-
-  #message {
-    font-size: 1.3rem;
-  }
-
-  #restart-btn {
-    padding: 10px 24px;
-    font-size: 1.1rem;
-  }
-
-  #hangman-inner {
-    width: 260px;
-    height: 320px;
-  }
+/* scienziati: alambicco */
+.cat-scientists #hangman-beaker {
+  width: 3px;
+  height: 30px;
+  top: 80px;
+  left: 56px;
+  border: 3px solid #f4d03f;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
+

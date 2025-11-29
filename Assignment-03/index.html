@@ -15,9 +15,8 @@
 
   <div id="game-container">
     <div id="stats-row">
-      <p id="score">Score: 0</p>
       <h1>Hangman</h1>
-      <p id="color-toggle"></p>
+      <p id="score">Score: 0</p>
     </div>
 
     <p>Type letters on your keyboard to play.</p>
@@ -29,40 +28,48 @@
 
     <h2 id="message"></h2>
 
-    <!-- Hangman box -->
-    <div id="hangman">
-      <div id="hangman-inner">
-        <div id="hangman-rope" class="part"></div>
-        <div id="hangman-head" class="part"></div>
-        <div id="hangman-arm-left" class="part"></div>
-        <div id="hangman-arm-right" class="part"></div>
-        <div id="hangman-body" class="part"></div>
-        <div id="hangman-leg-left" class="part"></div>
-        <div id="hangman-leg-right" class="part"></div>
-      </div>
+        <!-- Hangman box -->
+        <div id="hangman">
+          <div id="hangman-inner">
+            <div id="hangman-rope" class="part"></div>
+            <div id="hangman-head" class="part"></div>
+            <div id="hangman-arm-left" class="part"></div>
+            <div id="hangman-arm-right" class="part"></div>
+            <div id="hangman-body" class="part"></div>
+            <div id="hangman-leg-left" class="part"></div>
+            <div id="hangman-leg-right" class="part"></div>
 
-      <div id="category-select-container">
-        <label id="category-label">Select category:</label>
-        <select id="category-select">
-          <option value="scientists">Scientists</option>
-          <option value="revolutionaries">Revolutionaries</option>
-          <option value="philosophers">Philosophers</option>
-        </select>
-      </div>
-    </div>
-
-    <!-- After win - Figure info -->
-    <div id="figure-info-card" style="display: none;">
-      <div id="figure-image-container">
-        <img id="figure-image" src="" alt="Figure image" />
-      </div>
-      <div id="figure-info-text"></div>
-
-      <!-- Play again button - Inside figure info card -->
-      <div class="button-row">
-        <button id="restart-btn">Play again</button>
-      </div>
-    </div>
+            <!-- ELEMENTI EXTRA -->
+  <div id="hangman-tool"></div>   <!-- spada -->
+  <div id="hangman-cloud"></div>  <!-- nuvoletta -->
+  <div id="hangman-beaker"></div> <!-- alambicco -->
+  
+          </div>
+        </div>
+    
+        <!-- Play again button -->
+        <div class="button-row">
+          <button id="restart-btn">Play again</button>
+        </div>
+    
+        <!-- Select category -->
+        <div id="category-select-container">
+          <label id="category-label" for="category-select">Select category:</label>
+          <select id="category-select">
+            <option value="scientists">Scientists</option>
+            <option value="revolutionaries">Revolutionaries</option>
+            <option value="philosophers">Philosophers</option>
+          </select>
+        </div>
+    
+        <!-- After win - Figure info -->
+        <div id="figure-info-card" style="display: none;">
+          <div id="figure-image-container">
+            <img id="figure-image" src="" alt="Figure image" />
+          </div>
+          <div id="figure-info-text"></div>
+        </div>
+    
   </div>
 </body>
 

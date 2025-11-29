@@ -71,6 +71,14 @@ const hangmanArmRight = document.getElementById("hangman-arm-right");
 const hangmanLegLeft = document.getElementById("hangman-leg-left");
 const hangmanLegRight = document.getElementById("hangman-leg-right");
 
+// Altri elementi
+
+const hangmanTool = document.getElementById("hangman-tool");
+const hangmanCloud = document.getElementById("hangman-cloud");
+const hangmanBeaker = document.getElementById("hangman-beaker");
+
+
+
 const hangmanParts = [
   hangmanRope,
   hangmanHead,
@@ -102,18 +110,29 @@ function fetchFigureByName(name) {
       return response.json();
     })
     .then(function(data) {
-      if (data && data.length > 0) {
-        let figureData = data[0];
-        currentFigure = {
-          word: figureData.name.toUpperCase().replace(/[^A-Z]/g, ""),
-          originalName: figureData.name,
-          title: figureData.title,
-          info: figureData.info
-        };
-        startGameWithFigure();
-      }
+      let figureData = (data && data.length > 0) ? data[0] : {};
+      const displayName = name;
+
+      currentFigure = {
+        word: displayName.toUpperCase().replace(/[^A-Z]/g, ""),
+        originalName: displayName,
+        title: figureData.title || "",
+        info: figureData.info || {}
+      };
+
+      startGameWithFigure();
+    })
+    .catch(function() {
+      currentFigure = {
+        word: name.toUpperCase().replace(/[^A-Z]/g, ""),
+        originalName: name,
+        title: "",
+        info: {}
+      };
+      startGameWithFigure();
     });
 }
+
 
 // FETCH RANDOM FIGURE FROM CATEGORY
 function fetchRandomFigureForCategory() {
@@ -180,17 +199,8 @@ function showFigureInfo() {
     }
   }
 
-  let htmlContent = "<h2 class='figure-name'>";
-  
-  if (firstName) {
-    htmlContent = htmlContent + "<span class='first-name'>" + firstName + "</span>";
-  }
-  
-  if (lastName) {
-    htmlContent = htmlContent + "<span class='last-name'>" + lastName + "</span>";
-  }
-  
-  htmlContent = htmlContent + "</h2>";
+let htmlContent = "<h2 class='figure-name'>" + currentFigure.originalName + "</h2>";
+
   
   if (currentFigure.title) {
     htmlContent = htmlContent + "<p class='figure-title'><strong>" + currentFigure.title + "</strong></p>";
@@ -243,8 +253,13 @@ function startGameWithFigure() {
     j = j + 1;
   }
 
+  hangmanTool.style.display = "none";
+  hangmanCloud.style.display = "none";
+  hangmanBeaker.style.display = "none";
+
   applyCategoryStyles();
 }
+
 
 // START NEW GAME
 function startGame() {
@@ -304,6 +319,18 @@ function handleGuess(letter) {
     if (errors <= maxErrors) {
       hangmanParts[errors - 1].style.visibility = "visible";
     }
+
+    if (errors === 3) {
+      if (currentCategoryKey === "revolutionaries") {
+        hangmanTool.style.display = "block";
+      } else if (currentCategoryKey === "philosophers") {
+        hangmanCloud.style.display = "block";
+      } else if (currentCategoryKey === "scientists") {
+        hangmanBeaker.style.display = "block";
+      }
+    }
+
+
 
     if (errors === maxErrors) {
       gameActive = false;
