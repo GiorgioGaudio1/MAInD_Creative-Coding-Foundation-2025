@@ -1,5 +1,5 @@
 // API CONFIGURATION
-const API_KEY = "5jy+KL6Ef0MT5IarKMqfPw==HcgBk7DzBFHDONjZ";
+const API_KEY = "";
 const NINJA_ENDPOINT = "https://api.api-ninjas.com/v1/historicalfigures";
 
 // GAME CATEGORIES AND DATA
@@ -69,12 +69,9 @@ const hangmanLegLeft = document.getElementById("hangman-leg-left");
 const hangmanLegRight = document.getElementById("hangman-leg-right");
 
 // Altri elementi
-
 const hangmanTool = document.getElementById("hangman-tool");
 const hangmanCloud = document.getElementById("hangman-cloud");
 const hangmanBeaker = document.getElementById("hangman-beaker");
-
-
 
 const hangmanParts = [
   hangmanRope,
@@ -108,14 +105,10 @@ function fetchFigureByName(name) {
     })
     .then(function(data) {
       let figureData = (data && data.length > 0) ? data[0] : {};
-      console.log("FIGURE DATA:", figureData);  
-      const displayName = name;
-      
-    
 
       currentFigure = {
-        word: displayName.toUpperCase().replace(/[^A-Z]/g, ""),
-        originalName: displayName,
+        word: name.toUpperCase().replace(/[^A-Z]/g, ""),
+        originalName: name,
         title: figureData.title || "",
         info: figureData.info || {}
       };
@@ -133,7 +126,6 @@ function fetchFigureByName(name) {
     });
 }
 
-
 // FETCH RANDOM FIGURE FROM CATEGORY
 function fetchRandomFigureForCategory() {
   let seeds = CATEGORIES[currentCategoryKey].seeds;
@@ -144,7 +136,9 @@ function fetchRandomFigureForCategory() {
 
 // LOAD FIGURE IMAGE FROM WIKIPEDIA
 function loadFigureImageFromWikipedia(name) {
-  let url = "https://en.wikipedia.org/api/rest_v1/page/summary/" + encodeURIComponent(name);
+  let url =
+    "https://en.wikipedia.org/api/rest_v1/page/summary/" +
+    encodeURIComponent(name);
 
   fetch(url)
     .then(function(response) {
@@ -171,9 +165,6 @@ function showFigureInfo() {
   figureInfoCard.style.display = "block";
 
   let info = currentFigure.info;
-  let nameParts = currentFigure.originalName.split(" ");
-  let firstName = nameParts[0];
-  let lastName = nameParts[nameParts.length - 1];
 
   let occupations = "";
   if (info.occupation) {
@@ -199,26 +190,44 @@ function showFigureInfo() {
     }
   }
 
-let htmlContent = "<h2 class='figure-name'>" + currentFigure.originalName + "</h2>";
+  let htmlContent =
+    "<h2 class='figure-name'>" + currentFigure.originalName + "</h2>";
 
-  
   if (currentFigure.title) {
-    htmlContent = htmlContent + "<p class='figure-title'><strong>" + currentFigure.title + "</strong></p>";
+    htmlContent =
+      htmlContent +
+      "<p class='figure-title'><strong>" +
+      currentFigure.title +
+      "</strong></p>";
   }
   if (info.born) {
-    htmlContent = htmlContent + "<p><strong>Born:</strong> " + info.born + "</p>";
+    htmlContent =
+      htmlContent + "<p><strong>Born:</strong> " + info.born + "</p>";
   }
   if (info.died) {
-    htmlContent = htmlContent + "<p><strong>Died:</strong> " + info.died + "</p>";
+    htmlContent =
+      htmlContent + "<p><strong>Died:</strong> " + info.died + "</p>";
   }
   if (occupations) {
-    htmlContent = htmlContent + "<p><strong>Occupation:</strong> " + occupations + "</p>";
+    htmlContent =
+      htmlContent +
+      "<p><strong>Occupation:</strong> " +
+      occupations +
+      "</p>";
   }
   if (knownFor) {
-    htmlContent = htmlContent + "<p><strong>Known for:</strong> " + knownFor + "</p>";
+    htmlContent =
+      htmlContent +
+      "<p><strong>Known for:</strong> " +
+      knownFor +
+      "</p>";
   }
   if (info.nationality) {
-    htmlContent = htmlContent + "<p><strong>Nationality:</strong> " + info.nationality + "</p>";
+    htmlContent =
+      htmlContent +
+      "<p><strong>Nationality:</strong> " +
+      info.nationality +
+      "</p>";
   }
 
   figureInfoText.innerHTML = htmlContent;
@@ -229,13 +238,13 @@ let htmlContent = "<h2 class='figure-name'>" + currentFigure.originalName + "</h
 function startGameWithFigure() {
   currentWord = currentFigure.word;
   displayWord = [];
-  
+
   let i = 0;
   while (i < currentWord.length) {
     displayWord.push("_");
     i = i + 1;
   }
-  
+
   errors = 0;
   usedLetters = [];
   gameActive = true;
@@ -260,7 +269,6 @@ function startGameWithFigure() {
   applyCategoryStyles();
 }
 
-
 // START NEW GAME
 function startGame() {
   gameActive = false;
@@ -276,19 +284,16 @@ function handleGuess(letter) {
     return;
   }
 
+  letter = letter.toUpperCase();
+
   // Accept only letters A-Z
   if (!/^[A-Z]$/.test(letter)) return;
 
   if (usedLetters.includes(letter)) return;
 
-  letter = letter.toUpperCase();
-
-  if (usedLetters.indexOf(letter) !== -1) {
-    return;
-  }
-
   usedLetters.push(letter);
-  usedLettersHtml.textContent = "Used letters: " + usedLetters.join(" - ");
+  usedLettersHtml.textContent =
+    "Used letters: " + usedLetters.join(" - ");
 
   if (currentWord.indexOf(letter) !== -1) {
     let i = 0;
@@ -330,22 +335,19 @@ function handleGuess(letter) {
       }
     }
 
-
-
     if (errors === maxErrors) {
       gameActive = false;
-      
-      // Split the full name to show first name and last name
+
       let nameParts = currentFigure.originalName.split(" ");
       let firstName = nameParts[0];
       let lastName = nameParts[nameParts.length - 1];
       let fullName = firstName + " " + lastName;
-      
-      messageDiv.textContent = "You lose! The word was: " + fullName;
-      
-      // Show the last name in the word display area
+
+      messageDiv.textContent =
+        "You lose! The word was: " + fullName;
+
       wordDiv.textContent = firstName + " " + lastName;
-      
+
       restartBtn.style.display = "inline-block";
       loseSound.currentTime = 0;
       loseSound.play();
