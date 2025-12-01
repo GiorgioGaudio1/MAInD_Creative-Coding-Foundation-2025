@@ -2,85 +2,132 @@
 
 ## Brief
 
-Choose a “mini-game” to rebuild with HTML, CSS and JavaScript. The requirements are:
+Upgrade the Assignment 02 by adding the use of data coming from an external web API. For example, fetch contents (audio, images, video, text, metadata) from online archives, AI generated contents (chatGPT API), data (weather, realtime traffic data, environmental data).
 
-- The webpage should be responsive
-- Choose an avatar at the beginning of the game
-- Keep track of the score of the player
-- Use the keyboard to control the game (indicate what are the controls in the page). You can also use buttons (mouse), but also keyboard.
-- Use some multimedia files (audio, video, …)
-- Implement an “automatic restart” in the game (that is not done via the refresh of the page)
+The application **must** have those requirements:
 
-![First screenshoot](DOC/Hangman_1.png) 
+- The webpage is responsive
+- Use a web API (you choose which one best fists for your project) to load the data and display them in the webpage
+- At least one multimedia file (for user feedback interactions, or content itself)
+- Develop a navigation system that allows the user to navigate different sections with related content and functionalities
 
-![Second screenshoot](DOC/Hangman_2(youwin).png)
+![First screenshoot](DOC/Hangman.png) 
+
+![Second screenshoot](DOC/Hangman_win.png)
 
 ## Project description
-Hangman is a minimalist browser game where you guess a hidden programming word by typing letters on the keyboard. Each wrong guess reveals a new part of a colored hangman. Sounds, score tracking and a color picker make quick, replayable rounds.
+A historical-figure-themed Hangman game that uses the API Ninjas database to fetch real characters and display their info. Players guess names, unlock biographical details, and see category-based animations, blending learning and gameplay in a fun, dynamic UI.
 
 graph TD
-  A[Page load] --> B[startGame()]
-  B --> C[Init word, errors, usedLetters, score]
-  C --> D[Pick random word & build displayWord]
-  D --> E[Hide hangman parts & applyHangmanColor()]
-  E --> F[Render word, stats, UI]
+A[Page_loads] --> B[Set_default_category]
+B --> C[startGame]
+C --> D[Pick_random_name]
+D --> E[Fetch_API_data]
+E --> F[Set_currentFigure_and_word]
+F --> G[Show_hidden_word]
+G --> H[User_inputs_letter]
 
-  A --> G[User chooses color]
-  G --> H[Set chosenColor & applyHangmanColor()]
-  H --> E
+H -->|Already_used| HU[Ignore]
+H -->|Correct| I[Update_word]
+H -->|Wrong| J[Increment_errors]
 
-  A --> I[Keydown letter]
-  I --> J[handleGuess(letter)]
-  J --> K{Valid A–Z<br/>and not used?}
-  K -->|No| F
+I --> K{Any_letters_left?}
+K -->|Yes| H
+K -->|No| L[Win]
 
-  K -->|Yes & in word| L[Reveal matching letters<br/>updateWordDisplay()]
-  L --> M{Word complete?}
-  M -->|Yes| N[Win state<br/>score++<br/>play win sound<br/>show restart]
-  M -->|No| F
+L --> M[Increase_score]
+M --> N[Show_win_message]
+N --> O[Show_figure_info]
+O --> P[Play_again]
 
-  K -->|Yes & not in word| O[errors++<br/>update errors label<br/>reveal next hangman part]
-  O --> P{errors == maxErrors?}
-  P -->|Yes| Q[Lose state<br/>show word<br/>play lose sound<br/>show restart]
-  P -->|No| F
+J --> Q{errors_eq_3?}
+Q -->|Yes| R[Show_category_item]
+Q -->|No| H
 
-  R[Restart button click] --> B
+J --> S{errors_eq_max?}
+S -->|No| H
+S -->|Yes| T[Lose]
 
-![Diagram](DOC/Block_diagram.svg)
+T --> U[Show_correct_name]
+U --> V[Play_again]
+
+B --> W[Category_changed]
+W --> X[Update_category]
+X --> C
+
+
+![Diagram](DOC/Diagram.svg)
 
 ## Function list
 
 
-### applyHangmanColor()
+### applyCategoryStyles()
 
 Arguments: none
-What it does: Applies the selected color to all hangman body parts by iterating over hangmanParts.
+What it does: Removes previous category classes from the hangman container and applies the class for the current category (scientists, revolutionaries, philosophers).
 Returns: void
 
-### startGame()
+### fetchFigureByName(name)
+
+Arguments:
+
+name (string)
+What it does: Queries the Historical Figures API for the selected name (modified by category), extracts title and info, and prepares the data structure for the current figure. Falls back gracefully when no data is returned. Then starts the game with those details.
+Returns: void
+
+### fetchRandomFigureForCategory()
 
 Arguments: none
-What it does: Initializes a new game: selects a random word, resets errors and used letters, updates the UI, hides all hangman parts, and applies the selected color.
+What it does: Selects a random seed name from the chosen category and calls fetchFigureByName() with it.
+Returns: void
+
+### loadFigureImageFromWikipedia(name)
+
+Arguments:
+
+name (string)
+What it does: Fetches the character’s image from Wikipedia’s REST API and displays it if available.
 Returns: void
 
 ### updateWordDisplay()
 
 Arguments: none
-What it does: Updates the visible word by joining the displayWord array and writing it into the DOM.
+What it does: Joins the displayWord array into a spaced string and updates the DOM to show the guessed letters.
+Returns: void
+
+### showFigureInfo()
+
+Arguments: none
+What it does: Hides the hangman UI, shows the info card, composes an HTML block with all available figure details from the API, and loads the figure’s image.
+Returns: void
+
+### startGameWithFigure()
+
+Arguments: none
+What it does: Initializes the gameplay using the current figure data: sets the hidden word, resets arrays, resets errors, hides all hangman parts, hides category items (tool, cloud, beaker), and updates the UI.
+Returns: void
+
+### startGame()
+
+Arguments: none
+What it does: Prepares the UI for a new round, shows the hangman container, hides the info card, sets “Loading character…”, then fetches a new random figure based on the selected category.
 Returns: void
 
 ### handleGuess(letter)
 
 Arguments:
-letter (string)
-What it does: Validates the letter, updates the list of used letters, reveals correct letters or increases errors, updates the UI, and handles win/lose states including sounds.
+
+###letter (string)
+What it does:
+Validates the input letter (A–Z), prevents reuse, updates used letters, reveals correct letters or shows hangman parts on errors, triggers category-specific accessory on the 3rd error, checks win/lose conditions, and plays corresponding sounds.
 Returns: void
 
-### Keyboard Event Listener
+### Event Listeners
+Keyboard Event Listener
 
-document.addEventListener("keydown", ...)
+### document.addEventListener("keydown", ...)
 Arguments: event (KeyboardEvent)
-What it does: Captures the pressed key, converts it, and passes it to handleGuess().
+What it does: Captures the pressed key, converts it to uppercase, and passes it to handleGuess().
 Returns: void
 
 ### Restart Button Listener
@@ -90,18 +137,11 @@ Arguments: none
 What it does: Starts a new game by calling startGame().
 Returns: void
 
-### Color Option Listeners
+### Category Select Listener
 
-colorOptions.forEach(option => option.addEventListener("click", ...))
+categorySelect.addEventListener("change", ...)
 Arguments: none
-What it does: Updates chosenColor, refreshes the color selector UI, and calls applyHangmanColor().
-Returns: void
-
-### Color Toggle Listener
-
-colorToggle.addEventListener("click", ...)
-Arguments: none
-What it does: Opens the color selection panel and hides the toggle.
+What it does: Updates currentCategoryKey based on the user’s selection and immediately starts a new game.
 Returns: void
 
 ## Licence

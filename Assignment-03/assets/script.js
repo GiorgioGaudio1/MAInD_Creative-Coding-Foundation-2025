@@ -8,7 +8,6 @@ const CATEGORIES = {
     label: "Scientists",
     seeds: [
       "Albert Einstein",
-      "Isaac Newton",
       "Marie Curie",
       "Galileo Galilei",
       "Nikola Tesla"
@@ -25,9 +24,7 @@ const CATEGORIES = {
   philosophers: {
     label: "Philosophers",
     seeds: [
-      "Socrates",
-      "Plato",
-      "Aristotle",
+      "Karl Marx",
       "Immanuel Kant",
       "Friedrich Nietzsche"
     ]
@@ -111,7 +108,10 @@ function fetchFigureByName(name) {
     })
     .then(function(data) {
       let figureData = (data && data.length > 0) ? data[0] : {};
+      console.log("FIGURE DATA:", figureData);  
       const displayName = name;
+      
+    
 
       currentFigure = {
         word: displayName.toUpperCase().replace(/[^A-Z]/g, ""),
@@ -277,9 +277,9 @@ function handleGuess(letter) {
   }
 
   // Accept only letters A-Z
-  if (letter < "A" || letter > "Z") {
-    return;
-  }
+  if (!/^[A-Z]$/.test(letter)) return;
+
+  if (usedLetters.includes(letter)) return;
 
   letter = letter.toUpperCase();
 

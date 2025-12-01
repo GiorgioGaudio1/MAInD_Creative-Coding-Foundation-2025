@@ -362,8 +362,8 @@ p {
   width: 5px;
   height: 60px;
   top: 40px;
-  left: 126px;
-  transform: rotate(20deg);
+  left: 50px;
+  transform: rotate(-20deg);
   border-radius: 3px;
 }
 
