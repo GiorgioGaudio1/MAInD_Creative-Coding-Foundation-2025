@@ -144,5 +144,11 @@ Arguments: none
 What it does: Updates currentCategoryKey based on the user’s selection and immediately starts a new game.
 Returns: void
 
+
+## API documentation
+
+https://api-ninjas.com/api/historicalfigures 
+
+
 ## Licence
 2025 (c) Giorgio Gaudio. All rights reserved. License: None
