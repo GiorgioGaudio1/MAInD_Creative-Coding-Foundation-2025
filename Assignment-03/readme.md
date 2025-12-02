@@ -148,6 +148,7 @@ Returns: void
 ## API documentation
 
 https://api-ninjas.com/api/historicalfigures 
+https://en.wikipedia.org/api/rest_v1/page/summary/ 
 
 
 ## Licence
