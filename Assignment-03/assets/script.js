@@ -410,7 +410,7 @@ function handleGuess(letter) {
     }
 
     // On third error, show category-specific prop
-    if (errors === 3) {
+    if (errors === 4) {
       if (currentCategoryKey === "revolutionaries") {
         hangmanTool.style.display = "block";
       } else if (currentCategoryKey === "philosophers") {
